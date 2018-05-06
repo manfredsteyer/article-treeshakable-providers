@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 12px; line-height: 22px; word-wrap: break-word; } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } img { max-width: 100%; max-height: 100%; } a { color: #4080D0; text-decoration: none; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } a:hover { color: #4080D0; text-decoration: underline; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left: 5px solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ .vscode-light { color: rgb(30, 30, 30); } .vscode-dark { color: #DDD; } .vscode-high-contrast { color: white; } .vscode-light code { color: #A31515; } .vscode-dark code { color: #D7BA7D; } .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } .vscode-light blockquote, .vscode-dark blockquote { background: rgba(127, 127, 127, 0.1); border-color: rgba(0, 122, 204, 0.5); } .vscode-high-contrast blockquote { background: transparent; border-color: #fff; }
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+ul.contains-task-list { padding-left: 0; } ul ul.contains-task-list { padding-left: 40px; } .task-list-item { list-style-type: none; } .task-list-item-checkbox { vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="treeshakable-providers--why--how-and-cycles">Treeshakable Providers: Why, How and Cycles</h1>
+<p><strong>Source code:</strong> <a href="https://github.com/manfredsteyer/treeshakable-providers-demo">https://github.com/manfredsteyer/treeshakable-providers-demo</a></p>
+<p>Treeshakable providers come with a new <strong>optional</strong> API that helps tools like webpack or rollup to get rid of unused services during the build process. &quot;Optional&quot; means that you can still go with the existing API you are used to. Besides smaller bundles, this innovation also allows a more direct and easier way for declaring services. Also, it might be a first foretaste of a future where modules are optional.</p>
+<p>In this post, I'm showing several options for using this new API and also point to some pitfalls one might run into. The <a href="https://github.com/manfredsteyer/treeshakable-providers-demo/tree/provideIn-module">source code</a> I'm using here can be found in my <a href="https://github.com/manfredsteyer/treeshakable-providers-demo/tree/provideIn-module">GitHub repository</a>. Please note that each branch represents one of the below mentioned scenarios.</p>
+<h2 id="why-and-a-first-how">Why and (a first) How?</h2>
+<p>First of all, let me explain why we need treeshakable providers. For this, let's have a look at the following example that uses the traditional API:</p>
+<pre class="hljs"><code><div>@NgModule({
+    [...]
+    providers: [
+        { provide: FlightService, useClass: FlightService }
+        <span class="hljs-comment">// Alternative: FlightService</span>
+    ]
+    [...]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FlightBookingModule {
+}
+</div></code></pre>
+<p>Let assume, our <code>AppModule</code> imports the displayed <code>FlightBookingModule</code>. In this case we have the following dependencies:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Treeshakable_Providers/article/01_treeshakable_providers_01.png" alt="Traditional API"></p>
+<p>Here you can see, that the <code>AppModule</code> always indirectly references our service, regardless if it uses it or not. Hence, tree shaking tool decide against removing it from the bundle, even if it is not used at all.</p>
+<p>To mitigate this issue, the core team found a solution that follows a simple idea: Turning around one of the arrows:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Treeshakable_Providers/article/02_treeshakable_providers_02.png" alt="Traditional API"></p>
+<p>In this case, the <code>AppModule</code> just has a dependency to the service, when it uses it (directly or indirectly).</p>
+<p>To express this in your code, just make use of the <code>provideIn</code> property within the <code>Injectable</code> decorator:</p>
+<pre class="hljs"><code><div>@Injectable({ 
+    providedIn: <span class="hljs-string">'root'</span> 
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FlightService {
+    <span class="hljs-keyword">constructor</span>(private http: HttpClient) {}
+    [...]
+}
+</div></code></pre>
+<p>This property points to a module and the service will be put into this module's injection scope. The value <code>'root'</code> is just a shortcut for the root component's scope. Please note, that this scope is also used by all other eagerly loaded (=not lazy-loaded) modules. Only lazy loaded modules as well as components get their own scope which inherits from the root scope. For this reason, you will very likely use <code>'root'</code> in most cases.</p>
+<p>One nice thing about this API is that we don't have to modify the module anymore for registering the service. This means that we can inject the service immediately after writing it.</p>
+<h2 id="why-providers-and-not-components">Why Providers and not Components?</h2>
+<p>You might wonder now, why the very same situation doesn't prevent treeshaking for components or other declarations. The answer is: It also prevents this. Therefore, the Angular team wrote the <a href="http://www.softwarearchitekt.at/post/2017/07/26/shrinking-angular-bundles-with-the-angular-build-optimizer.aspx">build optimizer</a> which is used by the CLI when creating a production build. One of it's tasks is removing the component decorator with its meta data as it is not needed after AOT compiling and prevents for tree shaking as shown.</p>
+<p>However, providers are a bit special: They are registered with a specific injection scope and provide a mapping between a token and a service. All this meta data is needed at runtime. Hence, the Angular team needed to go one step further and this led to the API for treeshakbles providers we are looking at here.</p>
+<h2 id="indirections">Indirections</h2>
+<p>The reason we are using dependency injection is that it allows for configuring indirections between a requested token and a provided service.</p>
+<p>For this, you can use known properties like <code>useClass</code> within the <code>Injectable</code> decorator to point to the service to inject:</p>
+<pre class="hljs"><code><div>@Injectable({ 
+    providedIn: <span class="hljs-string">'root'</span>,
+    useClass: AdvancedFlightService,
+    deps: [HttpClient]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FlightService {
+    <span class="hljs-keyword">constructor</span>(private http: HttpClient) {}
+    [...]
+}
+</div></code></pre>
+<p>This means that every component and service requesting a <code>FlightService</code> gets an <code>AdvancedFlightService</code>.</p>
+<p>When I wrote this using version 6.0.0, I've noticed that we have to mention the dependencies of the service <code>useClass</code> points to in the <code>deps</code> array. Otherwise Angular uses the tokens from the current constructor. In the displayed example both expect an <code>HttpClient</code>, hence the <code>deps</code> array would not be needed. I think that further versions will solve this issue so that we don't need the <code>deps</code> array for <code>useClass</code>.</p>
+<p>In addition to <code>useClass</code>, you can also use the other known options: <code>useValue</code>, <code>useFactory</code> and <code>useExisting</code>. Multi Providers seem to be not supported by treeshakable providers which makes sense because when it comes to this variety, the token should not know the individual services in advance.</p>
+<p>This means, we have to use the traditional API for this. As an alternative, we could build our own Multi Providers implementation by leveraging factories. I've included such an <a href="https://github.com/manfredsteyer/treeshakable-providers-demo/blob/multi/src/app/flight-api/multi.token.ts">implementation in my examples</a>; you can look it up <a href="https://github.com/manfredsteyer/treeshakable-providers-demo/blob/multi/src/app/flight-api/multi.token.ts">here</a>.</p>
+<h2 id="abstract-classes-as-tokens">Abstract Classes as Tokens</h2>
+<p>In the last example, we needed to make sure that the <code>AdvancedFlightService</code> can replace the <code>FlightService</code>. A super type like an abstract class or an interface would at least assure compatible method signatures.</p>
+<p>If we go with an abstract class, we can also use it as a token. This is a common practice for dependency injection: We are requesting an abstraction and get one of the possible implementations.</p>
+<p>Please note, that we cannot use an interface as a token, even though this is usual in lot's of other environments. The reason for this is TypeScript that is removing interfaces during the compilation as JavaScript doesn't has such a concept. However, we need tokens at runtime to request a service and so we cannot go with interfaces.</p>
+<p>For this solution, we just need to move our <code>Injectable</code> decorator containing the DI configuration to our abstract class:</p>
+<pre class="hljs"><code><div>@Injectable({ 
+    providedIn: <span class="hljs-string">'root'</span>,
+    useClass: AdvancedFlightService,
+    deps: [HttpClient]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> AbstractFlightService  {
+    [...]
+}
+</div></code></pre>
+<p>Then, the services can implement this abstract class:</p>
+<pre class="hljs"><code><div>@Injectable()
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AdvancedFlightService <span class="hljs-keyword">implements</span> AbstractFlightService {
+    [...]
+}
+</div></code></pre>
+<p>Now, the consumers are capable of requesting the abstraction to get the configured implementation:</p>
+<pre class="hljs"><code><div>@Component({ [...] })
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FlightSearchComponent <span class="hljs-keyword">implements</span> OnInit {
+
+  <span class="hljs-keyword">constructor</span>(private flightService: AbstractFlightService) { 
+  }
+
+  [...]
+}
+</div></code></pre>
+<p>This looks easy, but here is a pitfall. If you closely look at this example, you will notice a cycle:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Treeshakable_Providers/article/03_abstract-class-cycle.png" alt="Cycle caused by abstract class that points to service that is implementing it"></p>
+<p>However, in this very case we are lucky, because we are <code>implementing</code> and not <code>extending</code> the abstract class. This lesser known feature allows us to tread the abstract class like an interface: TypeScript just uses it to check the methods and the signatures. After this, it removes the reference to it and this resolves the cycle.</p>
+<p>But if we used <code>extends</code> here, the cycle would stay and this would result in an hen/egg-problem causing issues at runtime. To make a long story short: Always <code>implements</code> in such cases.</p>
+<h2 id="registering-services-with-lazy-modules">Registering Services with Lazy Modules</h2>
+<p>In very seldom cases, you want to register a service with the scope of an lazy module. This leads to an own service instance (an &quot;own singleton&quot;) for the lazy module that can override an service of an parent's scope.</p>
+<p>For this, <code>provideIn</code> can point to the module in question:</p>
+<pre class="hljs"><code><div>@Injectable({ 
+    providedIn: FlightBookingModule,
+    useClass: AdvancedFlightService,
+    deps: [HttpClient]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> AbstractFlightService  {
+}
+</div></code></pre>
+<p>This seems to be easy but it also causes a cycle:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Treeshakable_Providers/article/04_provide-in-cycle.png" alt="Cycle caused by pointing to a module with provideId"></p>
+<p>In a good discussion with <a href="https://github.com/alxhub">Alex Rickabaugh</a> from the Angular team, I've found out that we can resolve this cycle be putting services in an own service module. I've called this module just containing services for the feature in question <code>FlightApiModule</code>:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Treeshakable_Providers/article/05_provide-in-cycle-resolved.png" alt="Resolving cycle by introducing service module"></p>
+<p>This means we just have to change <code>providedIn</code> to point to the new <code>FlightApiModule</code>:</p>
+<pre class="hljs"><code><div>@Injectable({ 
+    providedIn: FlightApiModule,
+    useClass: AdvancedFlightService,
+    deps: [HttpClient]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> AbstractFlightService  {
+}
+</div></code></pre>
+<p>In addition, the lazy module also needs to import the new service module:</p>
+<pre class="hljs"><code><div>@NgModule({
+    imports: [
+        [...]
+        FlightApiModule
+    ],
+    [...]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> FlightBookingModule {
+}
+</div></code></pre>
+<h2 id="using-injectiontokens">Using InjectionTokens</h2>
+<p>In Angular, we can also use <code>InjectionTokens</code> objects to represent tokens. This allows us to create tokens for situations a class is not suitable for. To make this variety treeshakable too, the <code>InjectionToken</code> now takes a service provider:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FLIGHT_SERVICE = <span class="hljs-keyword">new</span> InjectionToken&lt;FlightService&gt;(<span class="hljs-string">'FLIGHT_SERVICE'</span>,
+    { 
+        providedIn: FlightApiModule, 
+        factory: () =&gt; <span class="hljs-keyword">new</span> FlightService(inject(HttpClient))
+    }
+);
+</div></code></pre>
+<p>For technical reasons, we have to specify a <code>factory</code> here. As there is no way to infer tokens from a function's signature, we have to use the shown <code>inject</code> method to get services by providing a token. Those services can be passed to the service the factory creates.</p>
+<p>Unfortunately, we cannot use <code>inject</code> with tokens represented by abstract classes. Even though Angular supports this, <code>inject</code>'s signature does currently (version 6.0.0) not allow for it. The reason might be that TypeScript doesn't have a nice way to express types that point to abstract classes. Hopefully this will be resolved in the future. For instance, Angular could use a workaround or just allow <code>any</code> for tokens. In the time being, we can cast the abstract class to <code>any</code> as it is compatible with every type.</p>
+<p>With this trick, we can create an injection token pointing to a service that uses our <code>AbstractFlightService</code> as a token.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> BOOKING_SERVICE = <span class="hljs-keyword">new</span> InjectionToken&lt;BookingService&gt;(<span class="hljs-string">'BOOKING_SERVICE'</span>,
+    { 
+        providedIn: FlightApiModule, 
+        factory: () =&gt; <span class="hljs-keyword">new</span> BookingService(inject(&lt;<span class="hljs-built_in">any</span>&gt;AbstractFlightService))
+    }
+);
+</div></code></pre>
+<h2 id="using-modules-to-configure-a-module">Using Modules to Configure a Module</h2>
+<p>Even though treeshakable providers come with a nicer API and help us to shrink our bundles, in some situations we have to go with the traditional API. One such situation was already outlined above: Multi-Providers. Another case where we stick with the traditional API is when providing services to configure a module. An example for this is the <code>RouterModule</code> with its static <code>forRoot</code> and <code>forChild</code> that take a router configuration.</p>
+<p>For this scenario we still need such static methods returning a <code>ModuleWithProviders</code> instance:</p>
+<pre class="hljs"><code><div>@NgModule({
+   imports: [ CommonModule ],
+   declarations: [ DemoComponent ],
+   providers: [ <span class="hljs-comment">/* no services */</span> ],
+   exports: [ DemoComponent ]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> DemoModule { 
+    <span class="hljs-keyword">static</span> forRoot(config: ConfigService): ModuleWithProviders {
+        <span class="hljs-keyword">return</span> {
+            ngModule: DemoModule,
+            providers: [
+               { provide: ConfigService, useValue: config }
+            ]
+        }
+    }
+}
+</div></code></pre>
+
+    </body>
+    </html>

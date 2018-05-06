@@ -1,6 +1,6 @@
 # Treeshakable Providers: Why, How and Cycles
 
-**Source code:** https://github.com/manfredsteyer/treeshakable-providers-demo
+**Source code:** https://github.com/manfredsteyer/treeshakable-providers-demo 
 
 Treeshakable providers come with a new **optional** API that helps tools like webpack or rollup to get rid of unused services during the build process. "Optional" means that you can still go with the existing API you are used to. Besides smaller bundles, this innovation also allows a more direct and easier way for declaring services. Also, it might be a first foretaste of a future where modules are optional.
 
@@ -25,13 +25,13 @@ export class FlightBookingModule {
 
 Let assume, our ``AppModule`` imports the displayed ``FlightBookingModule``. In this case we have the following dependencies:
 
-![Traditional API](treeshakable_providers_01.png)
+![Traditional API](01_treeshakable_providers_01.png)
 
 Here you can see, that the ``AppModule`` always indirectly references our service, regardless if it uses it or not. Hence, tree shaking tool decide against removing it from the bundle, even if it is not used at all.
 
 To mitigate this issue, the core team found a solution that follows a simple idea: Turning around one of the arrows:
 
-![Traditional API](treeshakable_providers_02.png)
+![Traditional API](02_treeshakable_providers_02.png)
 
 In this case, the ``AppModule`` just has a dependency to the service, when it uses it (directly or indirectly).
 
@@ -53,7 +53,7 @@ One nice thing about this API is that we don't have to modify the module anymore
 
 ## Why Providers and not Components?
 
-You might wonder now, why the very same situation doesn't prevent treeshaking for components or other declarations. The answer is: It also prevents this. Therefore, the Angular team wrote the [build optimizer](http://www.softwarearchitekt.at/post/2017/07/26/shrinking-angular-bundles-with-the-angular-build-optimizer.aspx) which is used by the CLI when creating a production build. One of it's tasks is removing the component decorator with its meta data as it is not needed after AOT compiling and prevents for tree shaking as shown.
+Now you might wonder, why the very same situation doesn't prevent treeshaking for components or other declarations. The answer is: It also prevents this. Therefore, the Angular team wrote the [build optimizer](http://www.softwarearchitekt.at/post/2017/07/26/shrinking-angular-bundles-with-the-angular-build-optimizer.aspx) which is used by the CLI when creating a production build. One of it's tasks is removing the component decorator with its meta data as it is not needed after AOT compiling and prevents for tree shaking as shown.
 
 However, providers are a bit special: They are registered with a specific injection scope and provide a mapping between a token and a service. All this meta data is needed at runtime. Hence, the Angular team needed to go one step further and this led to the API for treeshakbles providers we are looking at here.
 
@@ -79,7 +79,9 @@ This means that every component and service requesting a ``FlightService`` gets 
 
 When I wrote this using version 6.0.0, I've noticed that we have to mention the dependencies of the service ``useClass`` points to in the ``deps`` array. Otherwise Angular uses the tokens from the current constructor. In the displayed example both expect an ``HttpClient``, hence the ``deps`` array would not be needed. I think that further versions will solve this issue so that we don't need the ``deps`` array for ``useClass``.
 
-In addition to ``useClass``, you can also use the other known options: ``useValue``, ``useFactory`` and ``useExisting``. Multi-Providers not seem to be supported by treeshakable providers which makes sense because when it comes to this variety, the token should not know the individual services in advance. This means, we have to use the traditional API for this.
+In addition to ``useClass``, you can also use the other known options: ``useValue``, ``useFactory`` and ``useExisting``. Multi Providers seem to be not supported by treeshakable providers which makes sense because when it comes to this variety, the token should not know the individual services in advance. 
+
+This means, we have to use the traditional API for this. As an alternative, we could build our own Multi Providers implementation by leveraging factories. I've included such an [implementation in my examples](https://github.com/manfredsteyer/treeshakable-providers-demo/blob/multi/src/app/flight-api/multi.token.ts); you can look it up [here](https://github.com/manfredsteyer/treeshakable-providers-demo/blob/multi/src/app/flight-api/multi.token.ts).
 
 ## Abstract Classes as Tokens
 
@@ -126,12 +128,7 @@ export class FlightSearchComponent implements OnInit {
 
 This looks easy, but here is a pitfall. If you closely look at this example, you will notice a cycle:
 
-```
-[AbstractFlightService] -- useClass --> [AbstractFlightService]
-            ^                                     |
-            +----------- implements ---------------
-// TODO: real image
-```
+![Cycle caused by abstract class that points to service that is implementing it](03_abstract-class-cycle.png)
 
 However, in this very case we are lucky, because we are ``implementing`` and not ``extending`` the abstract class. This lesser known feature allows us to tread the abstract class like an interface: TypeScript just uses it to check the methods and the signatures. After this, it removes the reference to it and this resolves the cycle. 
 
@@ -155,23 +152,11 @@ export abstract class AbstractFlightService  {
 
 This seems to be easy but it also causes a cycle:
 
-```
-[AdvancedFlightService] <--- [AbstractFlightService] <--- [LazyComponent]
-        |                                                        ^
-        +--------> [FlightBookingModule (lazy)] -----------------+
-
-// TODO: add image
-```
+![Cycle caused by pointing to a module with provideId](04_provide-in-cycle.png)
 
 In a good discussion with [Alex Rickabaugh](https://github.com/alxhub) from the Angular team, I've found out that we can resolve this cycle be putting services in an own service module. I've called this module just containing services for the feature in question ``FlightApiModule``:
 
-```
-[AdvancedFlightService] <----- [AbstractFlightService] <----- [LazyComponent]
-        |                                                            ^
-        +---> [FlightApiModule] <--- [FlightBookingModule (lazy)] ---+
-
-// TODO: add image
-```
+![Resolving cycle by introducing service module](05_provide-in-cycle-resolved.png)
 
 This means we just have to change ``providedIn`` to point to the new ``FlightApiModule``:
 
